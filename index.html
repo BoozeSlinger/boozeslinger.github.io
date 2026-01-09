@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gametime Sports Bar & Grill coming soon to Chino, CA. Elevated bar food, huge TV wall, and the best happy hour in town.">
+    <title>Gametime Sports Bar & Grill | Chino, CA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-red: #E31837; 
+            --dark-bg: #111111;
+            --text-light: #f5f5f5;
+            --text-gray: #aaaaaa;
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, .nav-link, .btn { font-family: var(--font-head); text-transform: uppercase; }
+        h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 1rem; color: #fff; text-align: center; }
+        p { margin-bottom: 1.5rem; color: var(--text-gray); }
+        .text-accent { color: var(--primary-red); }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background 0.3s ease, padding 0.3s ease;
+            
+            /* FIXED: Set to fully transparent (no gradient shadow) */
+            background: transparent; 
+        }
+
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.95); /* Turns solid black when scrolling */
+            padding: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 220px; 
+            height: auto;
+            margin-bottom: 15px; 
+            transition: width 0.3s ease;
+            
+            /* HELPER: Adds a white glow around the logo so black text is visible on dark backgrounds */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+        }
+        
+        header.scrolled .logo { width: 160px; margin-bottom: 5px; }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-shadow: 0 2px 5px rgba(0,0,0,1); /* Strong shadow for readability */
+        }
+
+        .nav-link:hover { color: var(--primary-red); }
+        .nav-link.btn-cta {
+            background-color: var(--primary-red);
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-shadow: none;
+        }
+        .nav-link.btn-cta:hover { background-color: #b0102a; color: white; }
+
+        .mobile-toggle { display: none; color: white; font-size: 2rem; cursor: pointer; position: absolute; right: 20px; top: 20px; }
+
+        /* --- HERO SECTION --- */
+        #home {
+            height: 100vh;
+            width: 100%;
+            /* Dark Sports Bar Atmosphere Image */
+            background: url('https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=2071&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        #home::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            /* Darkens the background image so text pops */
+            background: rgba(0,0,0,0.5); 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            margin-top: 120px; 
+        }
+
+        .hero-h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero-sub {
+            font-size: 1.5rem;
+            color: #ddd;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+
+        /* --- SECTIONS --- */
+        section { padding: 80px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        #about { background-color: #1a1a1a; text-align: center; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-card { background: #222; padding: 30px; border-bottom: 4px solid var(--primary-red); }
+        .feature-card h3 { font-size: 1.5rem; color: white; margin-bottom: 10px; }
+
+        #menu { background-color: var(--dark-bg); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
+        .menu-category h3 { color: var(--primary-red); font-size: 2rem; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .menu-item .name { font-weight: 700; color: white; }
+        .menu-item .price { font-weight: 700; color: var(--primary-red); }
+        .menu-desc { font-size: 0.9rem; color: #888; font-style: italic; }
+
+        #events { background: #151515; text-align: center; }
+
+        #gallery { background-color: #1a1a1a; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+        .gallery-img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.3s; }
+        .gallery-img:hover { transform: scale(1.02); opacity: 0.8; }
+
+        #reservations {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+        }
+        .contact-form { max-width: 600px; margin: 0 auto; background: rgba(0,0,0,0.6); padding: 40px; border: 1px solid #444; }
+        input, textarea, select { width: 100%; padding: 15px; margin-bottom: 15px; background: #222; border: 1px solid #444; color: white; font-family: var(--font-body); }
+        button.submit-btn { background-color: var(--primary-red); color: white; padding: 15px 40px; border: none; cursor: pointer; font-family: var(--font-head); font-size: 1.2rem; width: 100%; }
+        button.submit-btn:hover { background-color: #b0102a; }
+
+        #location { background: #111; text-align: center; padding: 60px 20px; }
+        .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .info-col h4 { color: var(--primary-red); margin-bottom: 10px; }
+        .map-embed { width: 100%; height: 300px; border: 0; filter: grayscale(100%) invert(92%) contrast(83%); }
+        
+        footer { background: black; padding: 20px; text-align: center; font-size: 0.8rem; color: #555; }
+        .social-link { color: white; margin: 0 10px; font-size: 1.2rem; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: row; justify-content: space-between; padding: 0 20px; }
+            .logo { width: 140px; margin: 0; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+                background: #000; flex-direction: column; justify-content: center;
+                align-items: center; transition: right 0.3s ease; padding-top: 60px;
+            }
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: block; z-index: 1001; }
+            .hero-h1 { font-size: 2.5rem; }
+            header.scrolled .logo { width: 120px; }
+            header { background: transparent; } 
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="nav-container">
+            <img src="logo.png" alt="Gametime Sports Bar Logo" class="logo">
+            <div class="mobile-toggle" onclick="toggleMenu()">☰</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link" onclick="toggleMenu()">ABOUT</a></li>
+                <li><a href="#menu" class="nav-link" onclick="toggleMenu()">MENU</a></li>
+                <li><a href="#events" class="nav-link" onclick="toggleMenu()">EVENTS</a></li>
+                <li><a href="#gallery" class="nav-link" onclick="toggleMenu()">GALLERY</a></li>
+                <li><a href="#location" class="nav-link" onclick="toggleMenu()">LOCATION</a></li>
+                <li><a href="#reservations" class="nav-link btn-cta" onclick="toggleMenu()">RESERVATIONS</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1 class="hero-h1">CHINO'S PREMIER<br><span class="text-accent">SPORTS BAR & GRILL</span></h1>
+            <p class="hero-sub">ELEVATED EATS. ICE COLD DRINKS. EVERY GAME.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>WELCOME TO THE GAME</h2>
+            <p style="max-width: 700px; margin: 0 auto 40px auto; font-size: 1.1rem;">
+                Gametime Sports Bar & Grill is bringing a new energy to Chino. We aren't just another sports bar; we are an elevated experience. 
+                Whether you're here for the big fight, Sunday football, or a Tuesday night burger, we've got the best seat in the house waiting for you.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>HUGE TV WALL</h3>
+                    <p>Experience the action on our massive, state-of-the-art LED video wall. Every angle is a good angle.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>CRAFT BURGERS</h3>
+                    <p>Chef-driven menu featuring smash burgers, artisan wings, and locally sourced ingredients.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>HAPPY HOUR</h3>
+                    <p>The best deals in Chino. Premium drafts and signature cocktails at prices that keep the party going.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <div class="container">
+            <h2>ELEVATED EATS</h2>
+            <div class="menu-grid">
+                <div class="menu-category">
+                    <h3>KICKOFF</h3>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">GT SIGNATURE WINGS</div>
+                            <div class="menu-desc">Bone-in or Boneless. Buffalo, Garlic Parm, or Mango Habanero.</div>
+                        </div>
+                        <div class="price">$16</div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">LOADED NACHOS TOWER</div>
+                            <div class="menu-desc">House queso, jalapeños, pico de gallo, sour cream, guacamole.</div>
+                        </div>
+                        <div class="price">$18</div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">AHI POKE TARTARE</div>
+                            <div class="menu-desc">Fresh tuna, avocado, wonton crisps, soy glaze.</div>
+                        </div>
+                        <div class="price">$19</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>MAINS</h3>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">THE CHAMPION BURGER</div>
+                            <div class="menu-desc">Double wagyu blend, smoked gouda, bacon jam, brioche bun.</div>
+                        </div>
+                        <div class="price">$22</div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">STEAK FRITES</div>
+                            <div class="menu-desc">10oz NY Strip, garlic herb butter, truffle fries.</div>
+                        </div>
+                        <div class="price">$32</div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="name">NASHVILLE HOT CHICKEN</div>
+                            <div class="menu-desc">Crispy thigh, slaw, pickles, spicy mayo.</div>
+                        </div>
+                        <div class="price">$19</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <p>Full Menu Coming Soon</p>
+                <a href="#" class="btn" style="color: var(--primary-red); text-decoration: underline;">Download PDF Menu (Coming Soon)</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="container">
+            <h2>LIVE EVENTS</h2>
+            <p>Catch every UFC Fight, NFL Sunday, and NBA Game here.</p>
+            <div style="background: #222; padding: 20px; display: inline-block; border-left: 5px solid var(--primary-red); text-align: left;">
+                <h3 style="margin: 0; color: white;">GRAND OPENING PARTY</h3>
+                <p style="margin: 5px 0 0 0; color: #888;">Date To Be Announced</p>
+                <p style="margin: 5px 0 0 0;">Join us for the official ribbon cutting, live DJ, and giveaways.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <h2>THE VIBE</h2>
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=1974&auto=format&fit=crop" class="gallery-img" alt="Burger">
+                <img src="https://images.unsplash.com/photo-1518176258769-f227c798150e?q=80&w=2070&auto=format&fit=crop" class="gallery-img" alt="Sports Bar TV">
+                <img src="https://images.unsplash.com/photo-1555658636-6e4a36218be7?q=80&w=2070&auto=format&fit=crop" class="gallery-img" alt="Cocktail">
+                <img src="https://images.unsplash.com/photo-1563884849-c299c565d070?q=80&w=1999&auto=format&fit=crop" class="gallery-img" alt="Friends Cheering">
+                <img src="https://images.unsplash.com/photo-1546453667-8a8d2d07bc20?q=80&w=1974&auto=format&fit=crop" class="gallery-img" alt="Wings">
+                <img src="https://images.unsplash.com/photo-1615887023591-614d99c35d6f?q=80&w=2070&auto=format&fit=crop" class="gallery-img" alt="Bar Tap">
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.instagram.com/gt_sportsbar" target="_blank" class="nav-link" style="color: var(--primary-red); font-size: 0.9rem;">FOLLOW US ON INSTAGRAM @gt_sportsbar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservations">
+        <div class="container">
+            <h2>RESERVATIONS</h2>
+            <p>Secure your table for the next big game.</p>
+            <div class="contact-form">
+                <form onsubmit="event.preventDefault(); alert('Thanks! This is a demo form.');">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <select>
+                        <option>Reservation</option>
+                        <option>Private Event Inquiry</option>
+                        <option>General Question</option>
+                    </select>
+                    <textarea rows="4" placeholder="Date, Time, Party Size, or Message"></textarea>
+                    <button type="submit" class="submit-btn">SEND REQUEST</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="location">
+        <div class="container">
+            <h2>VISIT US</h2>
+            <div class="footer-info">
+                <div class="info-col">
+                    <h4>ADDRESS</h4>
+                    <p>13788 Roswell Ave #186<br>Chino, CA 91710</p>
+                </div>
+                <div class="info-col">
+                    <h4>HOURS (Coming Soon)</h4>
+                    <p>Mon - Sun<br>11:00 AM - 12:00 AM</p>
+                </div>
+                <div class="info-col">
+                    <h4>CONTACT</h4>
+                    <p>(909) 555-0199<br>info@gametimechino.com</p>
+                </div>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.667793540964!2d-117.6693459235334!3d33.99066632296043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c332cf5e0f7f2b%3A0x6b4b4b4b4b4b4b4b!2s13788%20Roswell%20Ave%20%23186%2C%20Chino%2C%20CA%2091710!5e0!3m2!1sen!2sus!4v1704812345678!5m2!1sen!2sus" class="map-embed" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Gametime Sports Bar & Grill. All Rights Reserved.</p>
+        <div style="margin-top: 10px;">
+            <a href="https://www.instagram.com/gt_sportsbar" target="_blank" class="social-link">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
